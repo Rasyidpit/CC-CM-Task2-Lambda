@@ -20,7 +20,7 @@ Murid dapat membuat fungsi *backend* sederhana yang bisa diakses via URL publik 
 1. Login ke **AWS Console** dan ketik **"Lambda"** di kolom pencarian.
 2. Klik tombol **"Create function"** (tombol oranye).
 3. Pilih **"Author from scratch"**.
-4. **Function name**: `eskul-cc-[nama-siswa]-api`
+4. **Function name**: `eskul-cc-nama-siswa-api`
 5. **Runtime**: Pilih **Python 3.12**.
 6. Klik **"Create function"** di bagian bawah.
 
