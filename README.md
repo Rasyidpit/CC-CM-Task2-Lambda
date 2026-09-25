@@ -16,7 +16,7 @@ Kita akan belajar tentang **Serverless Computing**. Fokus utamanya adalah memaha
 ## 📋 Materi Tugas
 Semua instruksi langkah-demi-langkah dan tugas praktikum dapat ditemukan di file berikut:
 
-👉 **[Buka Tugas Praktikum: Task-CC-Serverless.md](./Task-CC-Serverless.md)**
+👉 **[Buka Tugas Praktikum: Task-CC-Serverless.md](https://github.com/Rasyidpit/CC-CM-Task2-Lambda/blob/main/Task-CC.md)**
 
 ---
 
