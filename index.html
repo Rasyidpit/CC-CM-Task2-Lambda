@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Cloud</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f0f2f5; }
+        .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input { padding: 10px; margin: 5px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; background-color: #ff9900; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #e68a00; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Kalkulator Cloud</h2>
+        <input type="number" id="a" placeholder="Angka 1"> + 
+        <input type="number" id="b" placeholder="Angka 2">
+        <button onclick="hitung()">Hitung</button>
+        <h3 id="hasil">Hasil: -</h3>
+    </div>
+
+    <script>
+        async function hitung() {
+            const a = document.getElementById('a').value;
+            const b = document.getElementById('b').value;
+            
+            // --- PENTING: GANTI URL DI BAWAH DENGAN FUNCTION URL LAMBDA KAMU ---
+            const url = "https://URL_LAMBDA_KAMU_DISINI/?a=" + a + "&b=" + b;
+            
+            try {
+                document.getElementById('hasil').innerText = "Menghitung...";
+                const response = await fetch(url);
+                const data = await response.json();
+                document.getElementById('hasil').innerText = "Hasil: " + data.hasil;
+            } catch (error) {
+                document.getElementById('hasil').innerText = "Error! Cek URL Lambda kamu.";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
