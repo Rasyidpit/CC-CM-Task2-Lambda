@@ -1,36 +1,20 @@
-# ☁️ Tugas Praktikum: Pengenalan AWS Lambda (Serverless Computing)
+# ☁️ Tugas Praktikum: Kalkulator Serverless (AWS Lambda)
 
-## 💡 Apa itu AWS Lambda?
-Bayangkan kamu ingin menjalankan sebuah program, tapi kamu **tidak mau repot mengelola server**.
-
-**AWS Lambda** adalah layanan *Serverless*. Kamu cukup mengupload kode, dan AWS akan menjalankan kode tersebut **hanya saat dipanggil**. Kamu hanya membayar ketika kode berjalan, tidak ada biaya server saat tidak digunakan.
+## 💡 Apa itu Serverless?
+Kita akan membuat aplikasi **Kalkulator Cloud**. Kamu tidak perlu menyiapkan server sama sekali. Kamu cukup menulis kode untuk menjumlahkan angka, dan AWS yang akan menjalankan kode tersebut saat kamu menekan tombol di website!
 
 ---
 
-## 🎯 Tujuan Tugas
-Murid dapat membuat aplikasi kalkulator *backend* sederhana yang bisa diakses via URL publik tanpa perlu mengelola server.
-
----
-
-## 🚀 Langkah-Langkah Praktikum
-
-### 1. Membuat Fungsi Lambda
-1. Login ke **AWS Console** dan ketik **"Lambda"** di kolom pencarian.
-2. Klik **"Create function"**.
-3. Pilih **"Author from scratch"**.
-4. **Function name**: `eskul-cc-kalkulator-[nama-siswa]`
-5. **Runtime**: Pilih **Python 3.12**.
-6. Klik **"Create function"**.
-
-### 2. Memasukkan Kode Program
-1. Di halaman fungsi, scroll ke bagian **Code source**.
-2. Hapus semua isi kode di `lambda_function.py` dan ganti dengan kode berikut:
+## 🚀 Langkah 1: Membuat Backend di AWS Lambda
+1. Buka **AWS Lambda** di Console -> **Create function**.
+2. **Nama**: `eskul-cc-kalkulator-[nama-siswa]`, **Runtime**: **Python 3.12**.
+3. Klik **Create function**.
+4. Di bagian **Code source**, hapus semua kode dan masukkan kode ini (tanpa header CORS):
 
 ```python
 import json
 
 def lambda_handler(event, context):
-    # Mengambil parameter 'a' dan 'b' dari URL
     params = event.get('queryStringParameters', {})
     try:
         a = int(params.get('a', 0))
@@ -41,32 +25,32 @@ def lambda_handler(event, context):
     
     return {
         'statusCode': 200,
-        'headers': {
-            "Access-Control-Allow-Origin": "*" # Agar bisa diakses dari browser
-        },
         'body': json.dumps({'hasil': hasil})
     }
 ```
-3. Klik tombol **"Deploy"** untuk menyimpan.
-
-### 3. Membuat URL Publik & CORS
-1. Klik tab **"Configuration"** -> **"Function URL"**.
-2. Klik **"Create function URL"**.
-3. Pilih **Auth type: NONE**.
-4. **PENTING (CORS)**: Di halaman yang sama, klik **Edit** pada bagian **CORS**.
-5. Centang **"Allow all origins (*)"** dan klik **"Save"**.
-6. **Salin URL** yang muncul (contoh: `https://...on.aws/`).
-
-### 4. Mengetes Hasil
-1. Download file `index.html` dari repositori ini.
-2. Buka `index.html` dengan Text Editor (VS Code/Notepad).
-3. Cari baris: `const LAMBDA_URL = "ISI_URL_LAMBDA_KAMU_DISINI";`
-4. Ganti teks tersebut dengan URL Lambda yang kamu salin di langkah 3. Simpan.
-5. Buka `index.html` di browser dan coba hitung!
+5. Klik **Deploy**.
+6. Pergi ke tab **Configuration** -> **Function URL** -> **Create function URL**.
+7. Pilih **Auth type: NONE**.
+8. **PENTING (CORS)**: Klik Edit pada bagian **CORS**, centang **"Allow all origins (*)"**, lalu **Save**.
+9. **Salin URL Lambda** yang muncul (https://...).
 
 ---
 
-## ⚠️ PENTING: Pembersihan (Wajib!)
-Setelah selesai, **WAJIB** hapus fungsi agar tidak ada biaya:
-1. Masuk dashboard **Lambda**.
-2. Pilih fungsi tadi -> **Actions** -> **Delete function**.
+## 🚀 Langkah 2: Upload UI ke S3 Bucket
+*Agar aplikasi berjalan lancar, kita harus menaruh `index.html` di S3, tidak boleh dibuka langsung dari laptop.*
+
+1. Edit file `index.html` di komputermu. Cari bagian:
+   `const LAMBDA_URL = "ISI_URL_LAMBDA_KAMU_DISINI";`
+   Ganti dengan URL Lambda yang kamu salin tadi.
+2. Buka **S3** -> pilih bucket `eskul-cc-[nama-siswa]-2026`.
+3. Klik **Upload**, masukkan file `index.html` yang sudah diedit.
+4. Setelah upload, buka file tersebut di S3, klik tab **Permissions**, pastikan sudah diatur agar **Publicly Accessible**.
+5. Buka tab **Properties**, scroll ke bawah ke **Static website hosting**, aktifkan (enable) dan klik **Save**.
+6. Gunakan **URL Website** yang muncul di sana untuk membuka Kalkulator Cloud-mu!
+
+---
+
+## ⚠️ Pembersihan
+Setelah selesai, **WAJIB** hapus fungsi Lambda dan bucket S3 agar tidak ada biaya:
+1. **Lambda**: Pilih fungsi -> **Actions** -> **Delete function**.
+2. **S3**: Hapus isi bucket, lalu **Delete bucket**.
