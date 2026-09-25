@@ -20,7 +20,7 @@ Murid dapat membuat aplikasi kalkulator *backend* sederhana yang bisa diakses vi
 1. Login ke **AWS Console** dan ketik **"Lambda"** di kolom pencarian.
 2. Klik tombol **"Create function"** (tombol oranye).
 3. Pilih **"Author from scratch"**.
-4. **Function name**: `eskul-cc-kalkulator-api`
+4. **Function name**: `eskul-cc-kalkulator-api-namasiswa`
 5. **Runtime**: Pilih **Python 3.12**.
 6. Klik **"Create function"** di bagian bawah.
 
@@ -72,6 +72,6 @@ def lambda_handler(event, context):
 ## ⚠️ PENTING: Pembersihan (Wajib!)
 Setelah sesi selesai, **WAJIB** hapus fungsi agar tidak ada biaya:
 1. Masuk ke dashboard **Lambda**.
-2. Klik fungsi `eskul-cc-kalkulator-api` yang tadi dibuat.
+2. Klik fungsi `eskul-cc-kalkulator-api-namasiswa` yang tadi dibuat.
 3. Klik tombol **"Actions"** (kanan atas) -> **"Delete function"**.
 4. Konfirmasi dengan mengetik "delete".
